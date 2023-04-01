@@ -56,21 +56,27 @@ export const handleChangeListLocalStorage = (data) => {
     window.dispatchEvent(new Event("storage"));
 };
 
-const handleShuffleAnswers = (answerList) => {
-    const shuffledAnswersArr = [...answerList]
+const shuffleAnswersList = (answerList) => {
+    const shuffledAnswersArr = [...answerList];
     for (let i = shuffledAnswersArr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [shuffledAnswersArr[i], shuffledAnswersArr[j]] = [shuffledAnswersArr[j], shuffledAnswersArr[i]];
+        [shuffledAnswersArr[i], shuffledAnswersArr[j]] = [
+            shuffledAnswersArr[j],
+            shuffledAnswersArr[i],
+        ];
     }
-    return shuffledAnswersArr
-}
+    return shuffledAnswersArr;
+};
 
-export const handleShuffle = (questionsList) => {
+export const handleShuffle = (questionsList, callback = () => null) => {
     const shuffledArr = [...questionsList];
     for (let i = shuffledArr.length - 1; i > 0; i--) {
+        //Shuffle question
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+        //Shuffle answers from shuffled question list
+        const shuffledAnswersArr = shuffleAnswersList(shuffledArr[i].answers);
+        shuffledArr[i].answers = shuffledAnswersArr;
     }
-    console.log("shuffledArr", shuffledArr);
-    // return shuffledArr;
+    callback(shuffledArr);
 };

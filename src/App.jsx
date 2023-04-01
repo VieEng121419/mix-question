@@ -38,7 +38,14 @@ function App() {
                     }
                 />
             )}
-            {questionsList && <GenerateSection questionsList={questionsList}/>}
+            {questionsList && (
+                <GenerateSection
+                    questionsList={questionsList}
+                    setQuestionsList={(shuffledArr) =>
+                        setQuestionsList(shuffledArr)
+                    }
+                />
+            )}
         </div>
     );
 }
