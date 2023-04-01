@@ -1,0 +1,14 @@
+
+.Card {
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 1px 4px 14px rgba(0, 0, 0, 0.14);
+    padding: 24px;
+    margin-bottom: 30px;
+
+    &-Title {
+        font-size: 18px;
+        font-weight: 600;
+        padding-bottom: 24px;
+    }
+}

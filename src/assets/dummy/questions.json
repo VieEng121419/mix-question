@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "label": "What is the capital of France?",
+        "answers": [
+            { "id": 1.1, "label": "Paris" },
+            { "id": 1.2, "label": "London" },
+            { "id": 1.3, "label": "Berlin" },
+            { "id": 1.4, "label": "Madrid" }
+        ]
+    },
+    {
+        "id": 2,
+        "label": "What is the tallest mountain in the world?",
+        "answers": [
+            { "id": 2.1, "label": "Mount Everest" },
+            { "id": 2.2, "label": "K2" },
+            { "id": 2.3, "label": "Kilimanjaro" },
+            { "id": 2.4, "label": "Matterhorn" }
+        ]
+    },
+    {
+        "id": 3,
+        "label": "What is the largest country in the world by land area?",
+        "answers": [
+            { "id": 3.1, "label": "Russia" },
+            { "id": 3.2, "label": "Canada" },
+            { "id": 3.3, "label": "China" },
+            { "id": 3.4, "label": "United States" }
+        ]
+    },
+    {
+        "id": 4,
+        "label": "Who is the current president of the United States?",
+        "answers": [
+            { "id": 4.1, "label": "Joe Biden" },
+            { "id": 4.2, "label": "Donald Trump" },
+            { "id": 4.3, "label": "Barack Obama" },
+            { "id": 4.4, "label": "George W. Bush" }
+        ]
+    },
+    {
+        "id": 5,
+        "label": "What is the most populated country in the world?",
+        "answers": [
+            { "id": 5.1, "label": "China" },
+            { "id": 5.2, "label": "India" },
+            { "id": 5.3, "label": "United States" },
+            { "id": 5.4, "label": "Russia" }
+        ]
+    },
+    {
+        "id": 6,
+        "label": "What is the currency used in Japan?",
+        "answers": [
+            { "id": 6.1, "label": "Japanese yen" },
+            { "id": 6.2, "label": "Euro" },
+            { "id": 6.3, "label": "US dollar" },
+            { "id": 6.4, "label": "Pound sterling" }
+        ]
+    },
+    {
+        "id": 7,
+        "label": "What is the largest ocean in the world?",
+        "answers": [
+            { "id": 7.1, "label": "Pacific Ocean" },
+            { "id": 7.2, "label": "Atlantic Ocean" },
+            { "id": 7.3, "label": "Indian Ocean" },
+            { "id": 7.4, "label": "Arctic Ocean" }
+        ]
+    }
+]

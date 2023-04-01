@@ -1,0 +1,32 @@
+.Button {
+    border-width: 3px;
+    border-radius: 15px;
+    align-items: center;
+    padding: 13px 67px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all .2s;
+    outline: none;
+
+    &-default-primary {
+        background-color: #1B5D7E;
+        color: #FFFFFF;
+        border-color: #1B5D7E;
+        &:hover {
+            background-color: #4f7283;
+            border: 3px solid #4f7283;
+        }
+    }
+
+    &-outline-primary {
+        background-color: #FFFFFF;
+        color: #1B5D7E;
+        border-color: #1B5D7E;
+        &:hover {
+            color: #FFFFFF;
+            background-color: #1B5D7E;
+            border: 3px solid #1B5D7E;
+        }
+    }
+    
+}
