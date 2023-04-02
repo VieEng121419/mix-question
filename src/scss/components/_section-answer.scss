@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 13px;
     width: 100%;
     cursor: pointer;
 
@@ -24,9 +23,8 @@
         background-color: #f7f7f7;
         transition: all 0.2s;
         border: 3px solid #f7f7f7;
-        min-width: max-content;
-        padding-right: 80px;
-
+        width: 100%;
+        
         &:hover {
             border: 3px solid #f1f3f4;
             border-radius: 15px;
