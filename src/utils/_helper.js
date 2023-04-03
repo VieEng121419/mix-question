@@ -41,6 +41,24 @@ const csvFileToArray = (string) => {
     handleChangeListLocalStorage(csvQuestionArrayParsed);
 };
 
+export const handleChangeQuestion = (id, value, callback = () => null) => {
+    let questionListEdited = useQuestionsListParsed();
+    questionListEdited = questionListEdited.map((questionObj) => {
+        console.log(questionObj);
+        if (questionObj.question.id === id) {
+            return {
+                question: {
+                    ...questionObj.question,
+                    label: value,
+                },
+            };
+        }
+        return questionObj;
+    });
+    callback(questionListEdited);
+    handleChangeListLocalStorage(questionListEdited);
+};
+
 export const handleChangeAnswer = (id, value, callback = () => null) => {
     let questionListEdited = useQuestionsListParsed();
     questionListEdited = questionListEdited.map((questionObj) => {
@@ -53,6 +71,7 @@ export const handleChangeAnswer = (id, value, callback = () => null) => {
         return { question: { ...questionObj.question, answers: answerEdited } };
     });
     callback(questionListEdited);
+    handleChangeListLocalStorage(questionListEdited);
 };
 
 export const handleChangeListLocalStorage = (data) => {

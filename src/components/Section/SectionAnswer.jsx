@@ -8,10 +8,7 @@ const SectionAnswer = (props) => {
     const [position, setPosition] = useState("");
 
     const renderPosition = useCallback(() => {
-        if (index === 0) setPosition("A");
-        if (index === 1) setPosition("B");
-        if (index === 2) setPosition("C");
-        if (index === 3) setPosition("D");
+        setPosition(String.fromCharCode(index + 65));
     }, []);
 
     const handleEdit = () => {
@@ -19,8 +16,8 @@ const SectionAnswer = (props) => {
     };
 
     const handleChangeInput = (e) => {
-        onChange(e.target.value)
-    }
+        onChange(e.target.value);
+    };
 
     useEffect(() => {
         renderPosition();
@@ -35,7 +32,13 @@ const SectionAnswer = (props) => {
                 <div className="Section-Answer__Content">
                     <p className="Title">Answer {position}</p>
                     {isEdit ? (
-                        <input className="Section-Answer__Input" value={children} onChange={handleChangeInput}/>
+                        <input
+                            className="Section-Answer__Input"
+                            value={children}
+                            onChange={handleChangeInput}
+                            onBlur={() => onEdit(null)}
+                            autoFocus={isEdit}
+                        />
                     ) : (
                         <p className="Content">{children}</p>
                     )}
