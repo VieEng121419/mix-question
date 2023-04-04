@@ -1,18 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
+import CloseIcon from "../../assets/images/Close-Icon.svg";
 
 const Section = (props) => {
-    const { type, fill, borderColor, borderWidth, children, cursor, isClose } = props;
+    const {
+        isShowCloseIcon,
+        type,
+        fill,
+        borderColor,
+        borderWidth,
+        children,
+        cursor,
+        onClose
+    } = props;
 
     const style = {
         backgroundColor: fill,
-        cursor: cursor ? 'pointer' : '',
+        cursor: cursor ? "pointer" : "",
         borderColor,
-        borderWidth
+        borderWidth,
     };
 
     return (
         <div className={`Section ${type}`} style={style}>
+            {isShowCloseIcon && <img className="Section-IconClose" src={CloseIcon} alt="close-icon" onClick={() => onClose()}/>}
             {children}
         </div>
     );
@@ -21,17 +32,17 @@ const Section = (props) => {
 export default Section;
 
 Section.defaultProps = {
+    isShowCloseIcon: false,
     type: "solid",
     fill: "#FFFFFF",
-    borderColor: '#1B5D7E',
-    borderWidth: '1px',
+    borderColor: "#1B5D7E",
+    borderWidth: "1px",
     cursor: false,
-    isClose: false
 };
 
 Section.propsType = {
+    isShowCloseIcon: PropTypes.bool,
     type: PropTypes.string,
     fill: PropTypes.string,
     cursor: PropTypes.bool,
-    isClose: PropTypes.bool
 };

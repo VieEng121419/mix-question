@@ -14,15 +14,15 @@
         width: 48px;
         height: 48px;
         border-radius: 50%;
-        background-color: #1B5D7E;
-        color: #FFF;
+        background-color: #1b5d7e;
+        color: #fff;
         font-weight: 600;
     }
 
     &__Content {
         border-radius: 15px;
         padding: 9px 18px;
-        background-color: #F7F7F7;
+        background-color: #f7f7f7;
         transition: all 0.2s;
         border: 3px solid #f7f7f7;
         width: 90%;
@@ -35,14 +35,20 @@
         .Title {
             font-size: 18px;
             font-weight: 600;
-            color: #82878D;
-            padding-bottom: 6px;
+            color: #82878d;
+            // padding-bottom: 6px;
         }
 
         .Content {
             font-size: 24px;
             font-weight: 600;
             color: #000000;
+            padding-top: 6px;
+        }
+
+        input {
+            background-color: transparent;
+            width: 100%;
         }
     }
 
@@ -51,7 +57,7 @@
             padding: 10px 20px;
             border-radius: 15px;
             border: 3px solid #1b5d7e;
-            background-color: #FFFFFF;
+            background-color: #ffffff;
 
             .Title {
                 font-size: 14px;
@@ -72,5 +78,40 @@
                 outline: none;
             }
         }
+    }
+
+    &.Error {
+        .Section-Question__Content {
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 3px solid #dd1624;
+            background-color: #ffffff;
+
+            .Title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #dd1624;
+                padding-bottom: 6px;
+            }
+
+            .Content {
+                font-size: 19px;
+                font-weight: 500;
+                color: #000000;
+                min-width: max-content;
+                padding-right: 80px;
+            }
+
+            input {
+                outline: none;
+            }
+        }
+    }
+
+    &__Text-Error {
+        font-size: 15px;
+        color: #dd1624;
+        padding: 0 0 20px 7%;
+        font-weight: 600;
     }
 }

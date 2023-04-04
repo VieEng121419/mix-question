@@ -2,6 +2,15 @@
     border-width: 1px;
     border-radius: 15px;
     padding: 44px;
+    position: relative;
+
+    &-IconClose {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 2%;
+        cursor: pointer;
+    }
 
     &.solid {
         border-style: solid;

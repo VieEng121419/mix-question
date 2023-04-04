@@ -24,7 +24,7 @@
         transition: all 0.2s;
         border: 3px solid #f7f7f7;
         width: 100%;
-        
+
         &:hover {
             border: 3px solid #f1f3f4;
             border-radius: 15px;
@@ -34,13 +34,19 @@
             font-size: 14px;
             font-weight: 500;
             color: #82878d;
-            padding-bottom: 6px;
+            // padding-bottom: 6px;
         }
 
         .Content {
             font-size: 19px;
             font-weight: 500;
             color: #000000;
+            padding-top: 6px;
+        }
+
+        input {
+            background-color: transparent;
+            width: 100%;
         }
     }
 
@@ -49,7 +55,7 @@
             padding: 10px 20px;
             border-radius: 15px;
             border: 3px solid #1b5d7e;
-            background-color: #FFFFFF;
+            background-color: #ffffff;
 
             .Title {
                 font-size: 14px;
@@ -70,5 +76,65 @@
                 outline: none;
             }
         }
+    }
+
+    &.Error {
+        animation: "$description 15s";
+        animationiterationcount: "1";
+
+        .Section-Answer__Content {
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 3px solid #dd1624;
+            background-color: #ffffff;
+
+            .Title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #dd1624;
+                padding-bottom: 6px;
+            }
+
+            .Content {
+                font-size: 19px;
+                font-weight: 500;
+                color: #000000;
+                min-width: max-content;
+                padding-right: 80px;
+            }
+
+            input {
+                outline: none;
+            }
+        }
+        @keyframes description {
+            0% {
+                opacity: 0;
+                transform: "translateY(0)";
+            }
+            15% {
+                transform: "translateY(-4px, 0)";
+            }
+            30% {
+                transform: "translateY(6px, 0)";
+            }
+            45% {
+                transform: "translateY(-4px, 0)";
+            }
+            60% {
+                transform: "translateY(6px, 0)";
+            }
+            100% {
+                opacity: 1;
+                transform: "translateY(0)";
+            }
+        }
+    }
+
+    &__Text-Error {
+        font-size: 14px;
+        color: #dd1624;
+        padding: 11px 0 0 4%;
+        font-weight: 600;
     }
 }

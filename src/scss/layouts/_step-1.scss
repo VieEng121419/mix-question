@@ -5,3 +5,16 @@
         margin-top: 10px;
     }
 }
+
+.Section-Progress {
+    &__File-Name {
+        color: #000000;
+        font-size: 13px;
+
+    }
+
+    &__Progress-Number {
+        color: #82878D;
+        font-size: 13px;
+    }
+}

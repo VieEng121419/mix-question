@@ -2,9 +2,10 @@ import React from "react";
 import { useCallback } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 const SectionAnswer = (props) => {
-    const { isEdit, id, index, onEdit, onChange, children } = props;
+    const { isError, isEdit, id, index, onEdit, onChange, children } = props;
     const [position, setPosition] = useState("");
 
     const renderPosition = useCallback(() => {
@@ -26,7 +27,7 @@ const SectionAnswer = (props) => {
     return (
         <div>
             <div
-                className={`Section-Answer ${isEdit ? "Edit" : ""}`}
+                className={`Section-Answer ${isEdit ? "Edit" : ""} ${isError ? "Error" : ""}`}
                 onClick={handleEdit}
             >
                 <div className="Section-Answer__Content">
@@ -44,8 +45,19 @@ const SectionAnswer = (props) => {
                     )}
                 </div>
             </div>
+            {isError && <p className="Section-Answer__Text-Error">Answer Field is required.</p>}
         </div>
     );
 };
 
 export default SectionAnswer;
+
+SectionAnswer.defaultProps = {
+    isEdit: false,
+    isError: false
+};
+
+SectionAnswer.propsType = {
+    isEdit: PropTypes.bool,
+    isError: PropTypes.bool
+};

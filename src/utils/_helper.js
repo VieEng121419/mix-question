@@ -1,5 +1,6 @@
 import { formattedAnswer } from "./_convertAnswer";
-import { useQuestionsListParsed } from "./_customHook";
+import { useAddAnswersDefault, useQuestionsListParsed } from "./_customHook";
+import { LOCAL_STORAGE_NAME } from "./_constant";
 import * as XLSX from "xlsx";
 
 export const handleOnChangeInputFile = (e) => {
@@ -15,21 +16,25 @@ export const handleOnChangeInputFile = (e) => {
 const csvFileToArray = (string) => {
     const csvQuestionArray = string.split("\r\n");
     let csvQuestionArrayParsed = [];
+    let idQ = 1;
+    let indexQ = 0;
     csvQuestionArray.map((item, index) => {
         //Remove 3 last charaters:',,,' for label
         item = item.slice(0, -3);
         const questionObj = {
             question: {
-                id: index,
+                id: idQ,
                 label: item,
             },
         };
         // if even number then add question into array else add answers into question
         if ((index + 1) % 2) {
             csvQuestionArrayParsed = [...csvQuestionArrayParsed, questionObj];
+            indexQ = index;
+            idQ++;
         } else {
             csvQuestionArrayParsed.forEach((questionObj) => {
-                if (questionObj.question.id === index - 1) {
+                if (indexQ === index - 1) {
                     questionObj.question.answers = formattedAnswer(
                         questionObj.question.id,
                         item.split(",")
@@ -41,42 +46,31 @@ const csvFileToArray = (string) => {
     handleChangeListLocalStorage(csvQuestionArrayParsed);
 };
 
-export const handleChangeQuestion = (id, value, callback = () => null) => {
-    let questionListEdited = useQuestionsListParsed();
-    questionListEdited = questionListEdited.map((questionObj) => {
-        console.log(questionObj);
-        if (questionObj.question.id === id) {
-            return {
-                question: {
-                    ...questionObj.question,
-                    label: value,
-                },
-            };
-        }
-        return questionObj;
-    });
-    callback(questionListEdited);
-    handleChangeListLocalStorage(questionListEdited);
-};
-
-export const handleChangeAnswer = (id, value, callback = () => null) => {
-    let questionListEdited = useQuestionsListParsed();
-    questionListEdited = questionListEdited.map((questionObj) => {
-        let answerEdited = questionObj.question.answers.map((answer) => {
-            if (answer.id === id) {
-                return { ...answer, label: value };
-            }
-            return answer;
-        });
-        return { question: { ...questionObj.question, answers: answerEdited } };
-    });
-    callback(questionListEdited);
-    handleChangeListLocalStorage(questionListEdited);
+export const handleAddQuestion = (callback = () => {}) => {
+    let questionListAdded = useQuestionsListParsed();
+    const newQuestionObj = {
+        question: {
+            id: questionListAdded.length,
+            label: `Câu hỏi ${questionListAdded.length + 1}`,
+            answers: useAddAnswersDefault(questionListAdded.length),
+        },
+    };
+    questionListAdded = [...questionListAdded, newQuestionObj];
+    callback(questionListAdded);
+    handleChangeListLocalStorage(questionListAdded);
 };
 
 export const handleChangeListLocalStorage = (data) => {
-    localStorage.setItem("list-questions", JSON.stringify(data));
+    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(data));
     window.dispatchEvent(new Event("storage"));
+};
+
+export const handleDeleteQuestion = (id) => {
+    let questionListDeleted = useQuestionsListParsed();
+    questionListDeleted = questionListDeleted.filter(
+        (questionObj) => questionObj.question.id !== id
+    );
+    handleChangeListLocalStorage(questionListDeleted);
 };
 
 const shuffleAnswersList = (answerList) => {
@@ -98,7 +92,9 @@ export const handleShuffle = (questionsList, callback = () => null) => {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
         //Shuffle answers from shuffled question list
-        const shuffledAnswersArr = shuffleAnswersList(shuffledArr[i].question.answers);
+        const shuffledAnswersArr = shuffleAnswersList(
+            shuffledArr[i].question.answers
+        );
         shuffledArr[i].question.answers = shuffledAnswersArr;
     }
     callback(shuffledArr);
