@@ -48,11 +48,12 @@ const csvFileToArray = (string) => {
 
 export const handleAddQuestion = (callback = () => {}) => {
     let questionListAdded = useQuestionsListParsed();
+    const idQ = questionListAdded.length + 1;
     const newQuestionObj = {
         question: {
-            id: questionListAdded.length,
+            id: idQ,
             label: `Câu hỏi ${questionListAdded.length + 1}`,
-            answers: useAddAnswersDefault(questionListAdded.length),
+            answers: useAddAnswersDefault(idQ),
         },
     };
     questionListAdded = [...questionListAdded, newQuestionObj];
