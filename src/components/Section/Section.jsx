@@ -4,6 +4,7 @@ import CloseIcon from "../../assets/images/Close-Icon.svg";
 
 const Section = (props) => {
     const {
+        className,
         isShowCloseIcon,
         type,
         fill,
@@ -22,7 +23,7 @@ const Section = (props) => {
     };
 
     return (
-        <div className={`Section ${type}`} style={style}>
+        <div className={`Section ${className} ${type}`} style={style}>
             {isShowCloseIcon && <img className="Section-IconClose" src={CloseIcon} alt="close-icon" onClick={() => onClose()}/>}
             {children}
         </div>
@@ -32,6 +33,7 @@ const Section = (props) => {
 export default Section;
 
 Section.defaultProps = {
+    className: '',
     isShowCloseIcon: false,
     type: "solid",
     fill: "#FFFFFF",
@@ -41,6 +43,7 @@ Section.defaultProps = {
 };
 
 Section.propsType = {
+    className: PropTypes.string,
     isShowCloseIcon: PropTypes.bool,
     type: PropTypes.string,
     fill: PropTypes.string,

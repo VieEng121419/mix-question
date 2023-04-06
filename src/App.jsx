@@ -5,10 +5,12 @@ import Step1Section from "./sections/Step1/_step1";
 import Step2Section from "./sections/Step2/_step2";
 import GenerateSection from "./sections/Generate/_generate";
 import { LOCAL_STORAGE_NAME } from "./utils/_constant";
+import LIST_QUESTION_DEFAULT from "./assets/dummy/questions.json";
 
 function App() {
     const [questionsList, setQuestionsList] = useState(
-        JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)) || []
+        JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)) ||
+            LIST_QUESTION_DEFAULT
     );
 
     //Add event change for local storage
@@ -24,7 +26,7 @@ function App() {
         return () => {
             window.removeEventListener("storage", handleStorageChange);
         };
-    }, []);
+    }, [questionsList]);
 
     return (
         <div className="container mx-auto px-4">
@@ -36,22 +38,22 @@ function App() {
                     setQuestionsList(questionListRemoved);
                 }}
             />
-            {questionsList.length ? (
+            {
                 <Step2Section
                     questionsList={questionsList}
                     setQuestionsList={(questionListEdited) =>
                         setQuestionsList(questionListEdited)
                     }
                 />
-            ) : null}
-            {questionsList.length ? (
+            }
+            {
                 <GenerateSection
                     questionsList={questionsList}
                     setQuestionsList={(shuffledArr) =>
                         setQuestionsList(shuffledArr)
                     }
                 />
-            ) : null}
+            }
         </div>
     );
 }

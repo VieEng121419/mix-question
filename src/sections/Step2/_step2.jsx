@@ -84,63 +84,67 @@ const Step2Section = (props) => {
     };
 
     return (
-        <Card title="Step 2: Review and Edit">
-            {questionsList.map((questionObj, indexQ) => (
-                <div className="mb-5">
-                    <Section
-                        isShowCloseIcon
-                        type="solid"
-                        borderColor="#F1F3F4"
-                        borderWidth="3px"
-                        onClose={() => {
-                            handleDeleteQuestion(questionObj.question.id);
-                        }}
-                    >
-                        <SectionQuestions
-                            key={questionObj.question.id}
-                            id={questionObj.question.id}
-                            index={indexQ}
-                            isEdit={questionEdit === questionObj.question.id}
-                            onEdit={(value) => {
-                                handleQuestionEdited(value);
-                            }}
-                            onChange={(value) => {
-                                handleChangeQuestion(
-                                    questionObj.question.id,
-                                    value
-                                );
-                            }}
-                            isError={idError === questionObj.question.id}
-                        >
-                            {questionObj.question.label}
-                        </SectionQuestions>
-                        <div className="grid grid-cols-2 grid-rows-2 gap-5">
-                            {questionObj.question.answers.map(
-                                (answer, indexA) => (
-                                    <SectionAnswer
-                                        key={answer.id}
-                                        id={answer.id}
-                                        index={indexA}
-                                        isEdit={answerEdit === answer.id}
-                                        onEdit={(value) => {
-                                            handleAnswerEdited(value);
-                                        }}
-                                        onChange={(value) => {
-                                            handleChangeAnswer(
-                                                answer.id,
-                                                value
-                                            );
-                                        }}
-                                        isError={idError === answer.id}
-                                    >
-                                        {answer.label}
-                                    </SectionAnswer>
-                                )
-                            )}
-                        </div>
-                    </Section>
-                </div>
-            ))}
+        <Card title={"Step 2: Review and Edit"}>
+            {questionsList
+                ? questionsList.map((questionObj, indexQ) => (
+                      <div className="mb-5">
+                          <Section
+                              isShowCloseIcon
+                              type="solid"
+                              borderColor="#F1F3F4"
+                              borderWidth="3px"
+                              onClose={() => {
+                                  handleDeleteQuestion(questionObj.question.id);
+                              }}
+                          >
+                              <SectionQuestions
+                                  key={questionObj.question.id}
+                                  id={questionObj.question.id}
+                                  index={indexQ}
+                                  isEdit={
+                                      questionEdit === questionObj.question.id
+                                  }
+                                  onEdit={(value) => {
+                                      handleQuestionEdited(value);
+                                  }}
+                                  onChange={(value) => {
+                                      handleChangeQuestion(
+                                          questionObj.question.id,
+                                          value
+                                      );
+                                  }}
+                                  isError={idError === questionObj.question.id}
+                              >
+                                  {questionObj.question.label}
+                              </SectionQuestions>
+                              <div className="grid lg:grid-cols-2 lg:grid-rows-2 lg:grid-cols-2 lg:grid-rows-2 sm:grid-cols-1 sm:grid-rows-4 gap-5">
+                                  {questionObj.question.answers.map(
+                                      (answer, indexA) => (
+                                          <SectionAnswer
+                                              key={answer.id}
+                                              id={answer.id}
+                                              index={indexA}
+                                              isEdit={answerEdit === answer.id}
+                                              onEdit={(value) => {
+                                                  handleAnswerEdited(value);
+                                              }}
+                                              onChange={(value) => {
+                                                  handleChangeAnswer(
+                                                      answer.id,
+                                                      value
+                                                  );
+                                              }}
+                                              isError={idError === answer.id}
+                                          >
+                                              {answer.label}
+                                          </SectionAnswer>
+                                      )
+                                  )}
+                              </div>
+                          </Section>
+                      </div>
+                  ))
+                : null}
             <div className="mt-5">
                 <Button
                     type="outline"

@@ -3,6 +3,8 @@ import { useAddAnswersDefault, useQuestionsListParsed } from "./_customHook";
 import { LOCAL_STORAGE_NAME } from "./_constant";
 import * as XLSX from "xlsx";
 
+export const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
 export const handleOnChangeInputFile = (e) => {
     const fileReader = new FileReader();
     fileReader.onload = function (event) {
@@ -20,7 +22,7 @@ const csvFileToArray = (string) => {
     let indexQ = 0;
     csvQuestionArray.map((item, index) => {
         //Remove 3 last charaters:',,,' for label
-        item = item.slice(0, -3);
+        item = item.replace(/,,,/gm, "");
         const questionObj = {
             question: {
                 id: idQ,
@@ -52,7 +54,7 @@ export const handleAddQuestion = (callback = () => {}) => {
     const newQuestionObj = {
         question: {
             id: idQ,
-            label: `Câu hỏi ${questionListAdded.length + 1}`,
+            label: "New question title",
             answers: useAddAnswersDefault(idQ),
         },
     };
@@ -66,12 +68,35 @@ export const handleChangeListLocalStorage = (data) => {
     window.dispatchEvent(new Event("storage"));
 };
 
+const updateIdQuesionAfterDelete = (questionListDeleted, id) => {
+    let questionListAfterUpdateId = [];
+    questionListAfterUpdateId = questionListDeleted.map((questionObj) => {
+        if (questionObj.question.id > id) {
+            const idQ = questionObj.question.id - 1;
+            return {
+                question: {
+                    ...questionObj.question,
+                    id: idQ,
+                },
+            };
+        }
+        return questionObj;
+    });
+
+    return questionListAfterUpdateId;
+};
+
 export const handleDeleteQuestion = (id) => {
     let questionListDeleted = useQuestionsListParsed();
     questionListDeleted = questionListDeleted.filter(
         (questionObj) => questionObj.question.id !== id
     );
-    handleChangeListLocalStorage(questionListDeleted);
+    //Update id question and id answers after delete a question
+    const questionListAfterUpdateId = updateIdQuesionAfterDelete(
+        questionListDeleted,
+        id
+    );
+    handleChangeListLocalStorage(questionListAfterUpdateId);
 };
 
 const shuffleAnswersList = (answerList) => {

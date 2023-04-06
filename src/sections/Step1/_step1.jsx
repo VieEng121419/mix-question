@@ -5,14 +5,16 @@ import UploadIcon from "../../assets/images/Upload.svg";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import CloseIcon from "../../assets/images/Close-Icon.svg";
 import CsvFile from "../../assets/images/Csv-File.png";
-import { handleOnChangeInputFile } from "../../utils/_helper";
+import Sekeleton from "../../components/Skeleton/_Skeleton";
+import LIST_QUESTION_DEFAULT from "../../assets/dummy/questions.json";
+import { delay, handleOnChangeInputFile } from "../../utils/_helper";
 
 const Step1Section = (props) => {
-    const { questionsList, setQuestionsList } = props;
+    const { setQuestionsList } = props;
     const [progress, setProgress] = useState(0);
-    const [fileName, setFileName] = useState(0);
-    const [fileSize, setFileSize] = useState(0);
-    const [changeFile, setChangeFile] = useState(false);
+    const [fileName, setFileName] = useState("");
+    const [fileSize, setFileSize] = useState("");
+    const [isShowProgress, setIsShowProgress] = useState(false);
 
     const convertFileSize = (value) => {
         if (fileSize.length < 7)
@@ -20,16 +22,25 @@ const Step1Section = (props) => {
         return `${(Math.round(+fileSize / 1024) / 1000).toFixed(2)}MB`;
     };
 
-    const handleChangeFile = (e) => {
+    const fakeProgress = async () => {
+        await delay(500);
+        setProgress(80);
+        await delay(1000);
         setProgress(100);
+    };
+
+    const handleChangeFile = async (e) => {
+        setProgress(0);
+        setIsShowProgress(true);
+        await fakeProgress();
         setFileName(e.target.files[0].name);
         setFileSize(e.target.files[0].size);
         handleOnChangeInputFile(e);
-        setChangeFile(true);
     };
 
     const handleRemoveAllList = () => {
-        setQuestionsList([])
+        setQuestionsList(LIST_QUESTION_DEFAULT);
+        setIsShowProgress(false);
     };
 
     return (
@@ -42,6 +53,9 @@ const Step1Section = (props) => {
                     id="upload-csv"
                     onChange={(e) => {
                         handleChangeFile(e);
+                    }}
+                    onClick={(e) => {
+                        e.target.value = ""; //Reset e.target.value to import same file, don't remove
                     }}
                     accept={".csv"}
                 />
@@ -58,9 +72,12 @@ const Step1Section = (props) => {
                         </div>
                     </Section>
                 </label>
-                <div className="mt-6"></div>
-                {changeFile || questionsList.length ? (
-                    <Section fill="#F1F3F4" borderColor="#F1F3F4">
+                {isShowProgress ? (
+                    <Section
+                        className="mt-6"
+                        fill="#F1F3F4"
+                        borderColor="#F1F3F4"
+                    >
                         <div className="mb-5 flex flex-row justify-between items-end">
                             <div className="flex justify-start items-center gap-5">
                                 <img
@@ -70,10 +87,14 @@ const Step1Section = (props) => {
                                 />
                                 <div className="flex flex-col gap-3">
                                     <p className="Section-Progress__File-Name">
-                                        {fileName}
+                                        {fileName ? fileName : <Sekeleton />}
                                     </p>
                                     <p className="Section-Progress__Progress-Number">
-                                        {`${fileSize} KB`}
+                                        {fileSize ? (
+                                            `${fileSize} KB`
+                                        ) : (
+                                            <Sekeleton />
+                                        )}
                                     </p>
                                 </div>
                             </div>
